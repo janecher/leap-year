@@ -1,20 +1,27 @@
+// business logic
 function leapYear(year) {
-  if (year % 100 === 0) {
-    return false;
-  } 
-  else if (year % 4 === 0) {
+  if ((year % 4 === 0) && (year % 100 !== 0) || (year % 400 === 0)) {
     return true;
-  } 
-  else {
+  } else {
     return false;
   }
 }
 
+// user interface logic
 $(document).ready(function() {
-    $("form#leap-year").submit(function(event) {
-      event.preventDefault();
-      const year = parseInt($("input#year").val());
-      const result = leapYear(year);
-      $("#result").text(result);
-    });
+  $("form#leap-year").submit(function(event) {
+    event.preventDefault();
+    const year = parseInt($("input#year").val());
+    const result = leapYear(year);
+
+    $(".year").text(year);
+
+    if (!result) {                 // same as writing if (result === false)
+      $(".not").text("not");
+    } else {
+      $(".not").text("");
+    }
+
+    $("#result").show();
   });
+});
